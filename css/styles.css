@@ -1,0 +1,89 @@
+<style>
+/* Estilo básico para el botón y modal */
+.open-modal-button {
+    padding: 10px 15px;
+    background-color: #1e0bc9;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+.open-modal-button:hover {
+    background-color: #105dec;
+}
+.modal {
+    display: none; /* Ocultar el modal por defecto */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(252, 247, 247); /* Fondo semi-transparente */
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.formulario input, .formulario textarea {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+.formulario button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+.formulario button:hover {
+    background-color: #0056b3;
+}
+.etiquetas {
+    margin-top: 20px;
+}
+/* Estilo para las etiquetas con imagen de fondo */
+.etiqueta {
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 800px; /* Ancho de la etiqueta */
+    height: 200px; /* Alto de la etiqueta */
+    background-image: url('/images/fondo.jpg'); /* Ruta a la imagen de fondo */
+    background-size:contain; /* Ajusta la imagen al tamaño del elemento */
+    background-position:0% 100%; /* Centra la imagen a la izquierda*/
+    background-repeat: no-repeat;
+    color: #000000; /* Color del texto para que sea legible sobre la imagen */
+    box-sizing:content-box; /* Incluir padding y border en el tamaño total */
+    display: flex;
+    flex-direction: column; /* Organizar el contenido en columnas */
+    justify-content:center; /* Centrar verticalmente */
+    align-items:right; /* Centrar horizontalmente */
+    text-align:right; /* Alinear el texto al centro */
+    overflow:hidden; /* Ocultar el contenido que desborda */
+}
+
+.etiqueta div {
+    margin: 5px 0; /* Espaciado entre las líneas de texto */
+}
+</style>

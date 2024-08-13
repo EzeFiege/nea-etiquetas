@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Etiquetas</title>
+    <link rel = "stylesheet" href="/css/styles.css" > <!-- Vincula el archivo CSS -->
+</head>
+<body>
+    <h1>Generador de Etiquetas</h1>
+    <button class="open-modal-button" id="openModal">Ingresar Datos</button>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Ingrese Datos</h2>
+            <form id="formulario">
+                <label for="numeroRemito">Número de Remito:</label>
+                <input type="text" id="numeroRemito" name="numeroRemito" required>
+                
+                <label for="fecha">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" required>
+                
+                <label for="cantidadBultos">Cantidad de Bultos:</label>
+                <input type="number" id="cantidadBultos" name="cantidadBultos" min="1" required>
+                
+                <label for="observaciones">Observaciones:</label>
+                <textarea id="observaciones" name="observaciones" rows="4"></textarea>
+                
+                <button type="submit">Generar Etiquetas</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="etiquetas" class="Etiquetas"></div>
+    <script>
+        // Obtener elementos del modal
+        const modal = document.getElementById("myModal");
+        const btn = document.getElementById("openModal");
+        const span = document.getElementsByClassName("close")[0];
+        const form = document.getElementById("formulario");
+
+        // Mostrar el modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Ocultar el modal cuando se hace clic en la "X"
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Ocultar el modal cuando se hace clic fuera del modal
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Manejar el envío del formulario
+        form.onsubmit = function(event) {
+            event.preventDefault(); // Evitar el envío del formulario
+
+            // Obtener los datos del formulario
+            const numeroRemito = document.getElementById('numeroRemito').value;
+            const fecha = document.getElementById('fecha').value;
+            const cantidadBultos = parseInt(document.getElementById('cantidadBultos').value, 10);
+            const observaciones = document.getElementById('observaciones').value;
+
+            // Validar la cantidad de bultos
+            if (isNaN(cantidadBultos) || cantidadBultos < 1) {
+                alert("La cantidad de bultos debe ser un número válido mayor que 0.");
+                return;
+            }
+
+            // Limpiar etiquetas anteriores
+            const etiquetasDiv = document.getElementById('etiquetas');
+            etiquetasDiv.innerHTML = '';
+
+            // Generar etiquetas
+            for (let i = 1; i <= cantidadBultos; i++) {
+                const etiqueta = document.createElement('div');
+                etiqueta.className = 'etiqueta';
+                etiqueta.textContent = Número de Remito: ${numeroRemito} | Fecha: ${fecha} | Bulto ${i} de ${cantidadBultos} | Observaciones: ${observaciones};
+                etiquetasDiv.appendChild(etiqueta);
+            }
+            // Ocultar el modal después de procesar
+            modal.style.display = "none";
+        }
+    </script>
+    <script src="/javascript/script.js"></script>
+</body>
+</html>
