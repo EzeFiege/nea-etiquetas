@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Etiquetas A4</title>
-    <link rel = "stylesheet" href="/css/styles.css" > <!-- Vincula el archivo CSS -->
+    <title>Generador de Etiquetas</title>
+    <link rel="stylesheet" href="/css/styles2.css">
+    <style type="text/css" media="print">
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        .etiqueta {
+            width: 100mm; /* Ancho de la etiqueta - Ajusta según necesidad */
+            height: 60mm; /* Alto de la etiqueta - Ajusta según necesidad */
+            padding: 10mm;
+            margin: 5mm;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            page-break-inside: avoid; /* Evita cortes de página dentro de la etiqueta */
+            display: inline-block;
+            vertical-align: top; /* Alinea las etiquetas verticalmente */
+        }
+    </style>
 </head>
+
 <body>
     <h1>Generador de Etiquetas</h1>
     <button class="open-modal-button" id="openModal">Ingresar Datos</button>
@@ -17,61 +38,30 @@
             <form id="formulario">
                 <label for="numeroRemito">Número de Remito:</label>
                 <input type="text" id="numeroRemito" name="numeroRemito" required>
-                
+
                 <label for="fecha">Fecha:</label>
                 <input type="date" id="fecha" name="fecha" required>
-                
+
                 <label for="cantidadBultos">Cantidad de Bultos:</label>
                 <input type="number" id="cantidadBultos" name="cantidadBultos" min="1" required>
-                
+
                 <label for="observaciones">Observaciones:</label>
                 <textarea id="observaciones" name="observaciones" rows="4"></textarea>
-                
+
                 <button type="submit">Generar Etiquetas</button>
             </form>
         </div>
     </div>
 
-    <div id="etiquetas" class="Etiquetas"></div>
+    <div id="etiquetas" class="etiquetas-container"></div>
     <script>
-        // Obtener elementos del modal
-        const modal = document.getElementById("myModal");
-        const btn = document.getElementById("openModal");
-        const span = document.getElementsByClassName("close")[0];
-        const form = document.getElementById("formulario");
-
-        // Mostrar el modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // Ocultar el modal cuando se hace clic en la "X"
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // Ocultar el modal cuando se hace clic fuera del modal
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
+        // ... (código modal sin cambios)
 
         // Manejar el envío del formulario
-        form.onsubmit = function(event) {
-            event.preventDefault(); // Evitar el envío del formulario
+        form.onsubmit = function (event) {
+            event.preventDefault();
 
-            // Obtener los datos del formulario
-            const numeroRemito = document.getElementById('numeroRemito').value;
-            const fecha = document.getElementById('fecha').value;
-            const cantidadBultos = parseInt(document.getElementById('cantidadBultos').value, 10);
-            const observaciones = document.getElementById('observaciones').value;
-
-            // Validar la cantidad de bultos
-            if (isNaN(cantidadBultos) || cantidadBultos < 1) {
-                alert("La cantidad de bultos debe ser un número válido mayor que 0.");
-                return;
-            }
+            // ... (obtener datos del formulario sin cambios)
 
             // Limpiar etiquetas anteriores
             const etiquetasDiv = document.getElementById('etiquetas');
@@ -81,85 +71,34 @@
             for (let i = 1; i <= cantidadBultos; i++) {
                 const etiqueta = document.createElement('div');
                 etiqueta.className = 'etiqueta';
-                etiqueta.textContent = Número de Remito: ${numeroRemito} | Fecha: ${fecha} | Bulto ${i} de ${cantidadBultos} | Observaciones: ${observaciones};
+                etiqueta.style.backgroundColor = '#e0f2f7'; // Color de fondo azul claro
+                etiqueta.style.borderColor = '#4fc3f7';   // Borde azul más oscuro
+
+                // Diseño de la etiqueta (con estilos)
+                etiqueta.innerHTML = `
+                    <div style="color: #1a237e; font-weight: bold; text-align: center; margin-bottom: 5px;">
+                        Número de Remito: ${numeroRemito}
+                    </div>
+                    <div style="color: #0d47a1; margin-bottom: 5px;">
+                        Fecha: ${fecha}
+                    </div>
+                    <div style="color: #0d47a1; margin-bottom: 5px;">
+                        Bulto ${i} de ${cantidadBultos}
+                    </div>
+                    <div style="color: #1976d2;">
+                        Observaciones: ${observaciones}
+                    </div>
+                `;
+
                 etiquetasDiv.appendChild(etiqueta);
             }
-            // Ocultar el modal después de procesar
             modal.style.display = "none";
+
+            // Imprimir automáticamente
+            window.print();
         }
     </script>
     <script src="/javascript/script.js"></script>
 </body>
-</html>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Etiquetas A4</title>
-    <style>
-        @page {
-            size: A4;
-            margin: 1;
-        }
-        body {
-            margin: 1;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-        .page {
-            width: 210mm;
-            height: 297mm;
-            padding: 10mm; /* Margen general de la página */
-            box-sizing: border-box;
-        }
-        .etiqueta {
-            width: 90mm; /* Ancho de la etiqueta */
-            height: 50mm; /* Alto de la etiqueta */
-            margin: 5mm; /* Espacio entre etiquetas */
-            padding: 5mm;
-            float: left;
-            border: 1px solid #000;
-            box-sizing: border-box;
-            page-break-inside: avoid;
-        }
-        @media print {
-            body {
-                width: 210mm;
-                height: 297mm;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="page">
-        <!-- Las etiquetas se insertarán aquí dinámicamente -->
-    </div>
-
-    <script>
-        function generarEtiquetas(datos) {
-            const pagina = document.querySelector('.page');
-            datos.forEach(dato => {
-                const etiqueta = document.createElement('div');
-                etiqueta.className = 'etiqueta';
-                etiqueta.innerHTML = `
-                    <h3>${dato.titulo}</h3>
-                    <p>ID: ${dato.id}</p>
-                    <p>Descripción: ${dato.descripcion}</p>
-                `;
-                pagina.appendChild(etiqueta);
-            });
-        }
-
-        // Ejemplo de datos
-        const datosEjemplo = [
-            { titulo: "Cable 1", id: "CAB001", descripcion: "Cable coaxial 50m" },
-            { titulo: "Cable 2", id: "CAB002", descripcion: "Cable UTP Cat6 100m" },
-            // ... más datos ...
-        ];
-
-        generarEtiquetas(datosEjemplo);
-    </script>
-</body>
 </html>
