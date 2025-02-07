@@ -92,7 +92,6 @@ body {
     color: #000000; /* Color del texto para que sea legible sobre la imagen */
     box-sizing: border-box;
     display: inline-block;
-    vertical-align: top; /* Alinea las etiquetas verticalmente */
     page-break-inside: avoid; /* Evita cortes de página dentro de la etiqueta */
     flex-direction: column; /* Organizar el contenido en columnas */
     justify-content:center; /* Centrar verticalmente */
