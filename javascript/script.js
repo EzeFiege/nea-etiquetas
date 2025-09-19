@@ -5,11 +5,13 @@ document.getElementById('formulario').addEventListener('submit', function(event)
     const numeroRemito = document.getElementById('numeroRemito').value;
     const fecha = document.getElementById('fecha').value;
     const cantidadBultos = parseInt(document.getElementById('cantidadBultos').value, 10);
+    const imagenSeleccionada = document.getElementById('imagenSeleccionada').value;
     const observaciones = document.getElementById('observaciones').value;
 
     // Validar la cantidad de bultos
     if (isNaN(cantidadBultos) || cantidadBultos < 1) {
-        alert("La cantidad de bultos debe ser un número válido mayor que 0.");
+        // En lugar de alert, usa un mensaje en la interfaz
+        // showMessage("La cantidad de bultos debe ser un número válido mayor que 0.");
         return;
     }
 
@@ -20,17 +22,29 @@ document.getElementById('formulario').addEventListener('submit', function(event)
     // Generar etiquetas
     for (let i = 1; i <= cantidadBultos; i++) {
         const etiqueta = document.createElement('div');
-        etiqueta.className = 'etiqueta'; // Añade la clase para aplicar el estilo
+        etiqueta.className = 'etiqueta';
         
-        // Crear contenido para la etiqueta
-        const contenido = `
-            <div>Número de Remito: ${numeroRemito}</div>
-            <div>Fecha: ${fecha}</div>
-            <div>Bulto ${i} de ${cantidadBultos}</div>
-            <div>Observaciones: ${observaciones}</div>
+        // Crear elemento de imagen
+        const imagen = document.createElement('img');
+        imagen.src = `images/${imagenSeleccionada}`;
+        imagen.className = 'etiqueta-imagen';
+        
+        // Crear el contenedor de información y su contenido
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'etiqueta-info';
+        infoDiv.innerHTML = `
+            <div><strong>Número de Remito:</strong></div>
+            <div>${numeroRemito}</div>
+            <div><strong>Fecha:</strong></div>
+            <div>${fecha}</div>
+            <div><strong>Bulto:</strong></div>
+            <div>${i} de ${cantidadBultos}</div>
+            <div><strong>Observaciones:</strong></div>
+            <div class="observaciones-texto">${observaciones}</div>
         `;
         
-        etiqueta.innerHTML = contenido;
+        etiqueta.prepend(imagen);
+        etiqueta.appendChild(infoDiv);
         etiquetasDiv.appendChild(etiqueta);
     }
 
