@@ -1,4 +1,4 @@
-<style>
+
     /* Estilo básico para el botón y modal */
     .open-modal-button {
         padding: 10px 15px;
@@ -140,4 +140,3 @@
         grid-column: span 1; /* Ocupa solo la segunda columna del grid */
         text-align: left !important; /* Asegura que se alinee a la izquierda */
     }
-</style>
